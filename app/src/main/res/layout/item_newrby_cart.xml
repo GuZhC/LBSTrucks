@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="6dp"
+    app:cardCornerRadius="6dp"
+    android:elevation="8dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_item_cart"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:button="@drawable/selector_nearby_betoom"
+                android:checked="false"
+                android:gravity="center"
+                android:padding="6dp"
+                android:textColor="@color/orange"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/cart_goods_icon" />
+
+            <TextView
+                android:id="@+id/tv_nearby_storename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/textBlack"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shape_nearby_xuxian"
+            android:layerType="software" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_nearby_item_goods"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginLeft="12dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="8dp">
+
+                <TextView
+                    android:id="@+id/tv_nearby_item_goodsname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_nearby_item_gooddetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/tv_nearby_item_goodsname"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/textLight"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_nearby_item_gooddsub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:padding="6dp"
+                    android:text="—  "
+                    android:textColor="@color/textBlack"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_nearby_item_goodsnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/tv_nearby_item_gooddsub"
+                    android:layout_toRightOf="@+id/tv_nearby_item_gooddsub"
+                    android:padding="6dp"
+                    android:text="1"
+                    android:textColor="@color/textBlack"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_nearby_item_goodsadd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/tv_nearby_item_goodsnum"
+                    android:layout_toRightOf="@+id/tv_nearby_item_goodsnum"
+                    android:padding="6dp"
+                    android:text="  +  "
+                    android:textColor="@color/textBlack"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_nearby_item_price"
+                    android:text=""
+                    android:textColor="@color/orange"
+                    android:textSize="16sp"
+                    android:layout_marginRight="6dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

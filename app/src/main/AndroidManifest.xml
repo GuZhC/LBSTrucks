@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.rongyuan.mingyida">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+     
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="4fabaf74447fa6822bf967c1506d33a1" />
+
+        <activity
+            android:name=".module.mains.MainActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".module.classify.ClassifyActivity" />
+        <activity android:name=".base.BaseActivity" />
+        <activity android:name=".module.me.cartinfo.MyCartInfoActivity" />
+        <activity android:name=".module.me.cartinfo.AddMyCart" />
+        <activity android:name=".module.login.LoginActivity" />
+        <activity android:name=".module.register.RegisterActivity" />
+        <activity android:name=".module.goods.goodsdetails.GoodsDetailsActivity" />
+        <activity android:name=".module.servingproduct.AllservicesActivity" />
+        <activity android:name=".module.goods.AllGoodsActivity" />
+        <activity android:name=".module.store.StoreDetailsActivity" />
+        <activity android:name=".module.servingproduct.servedetails.ServeDetailsActivity" />
+        <activity android:name=".module.login.ForgetPswActivity" />
+        <activity android:name=".module.me.account.MyAccountActivity"></activity>
+    </application>
+
+</manifest>

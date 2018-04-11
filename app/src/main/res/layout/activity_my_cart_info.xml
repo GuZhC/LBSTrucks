@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+   >
+
+    <LinearLayout
+        android:background="@mipmap/my_car_topbgt"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/me_head_image"
+            android:layout_width="86dp"
+            android:layout_height="86dp"
+            android:layout_marginTop="13dp"
+            android:src="@mipmap/image_default"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="3dp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/my_cart_nohave"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:gravity="center_horizontal"
+                android:text="未完善爱车信息"
+                android:textSize="12sp"
+                android:drawableTop="@mipmap/my_cart_nohave"
+                android:textColor="@color/textBlack"
+                android:drawablePadding="14dp"
+                android:paddingTop="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/my_cart_go_add"
+                android:textSize="16sp"
+                android:text="去完善"
+                android:gravity="center"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/shape_circle_btn_bg"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="190dp"
+                android:layout_height="44dp" />
+        </LinearLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/my_cart_have"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/my_cart_info_one"
+                    android:drawablePadding="20dp"
+                    android:gravity="center"
+                    android:text="我的车牌号"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/my_cart_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" "
+                    android:textColor="@color/textBlack"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorPrimary" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/my_cart_info_two"
+                    android:drawablePadding="20dp"
+                    android:gravity="center"
+                    android:text="我的车架号"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/my_cart_number_chejia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/textBlack"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorPrimary" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/my_cart_info_three"
+                    android:drawablePadding="20dp"
+                    android:gravity="center"
+                    android:text="我的发动机号"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/my_cart_number_fadonji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" "
+                    android:textColor="@color/textBlack"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorPrimary" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/my_cart_info_fout"
+                    android:drawablePadding="20dp"
+                    android:gravity="center"
+                    android:text="车辆识别代号"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/my_cart_number_daihao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" "
+                    android:textColor="@color/textBlack"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorPrimary" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/my_cart_info_five"
+                    android:drawablePadding="20dp"
+                    android:gravity="center"
+                    android:text="使用性质"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/my_cart_function"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/textBlack"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorPrimary" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/my_cart_info_six"
+                    android:drawablePadding="20dp"
+                    android:gravity="center"
+                    android:text="品牌型号"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/my_cart_number_brand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/textBlack"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/colorPrimary" />
+
+        </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/background"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimary">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="28dp"
+            android:gravity="center"
+            android:text="购物车"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+        <ImageView
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/nearby_toolbar_editer"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/cart_editer"
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/nearby_mygoods_cart"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"></android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/darktGray"/>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        
+        <CheckBox
+            android:id="@+id/cb_cart_betoom"
+            android:checked="false"
+            android:gravity="center"
+            android:layout_marginLeft="6dp"
+            android:button="@drawable/selector_nearby_betoom"
+            android:text="全选"
+            android:padding="6dp"
+            android:textSize="12sp"
+            android:textColor="@color/orange"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_marginLeft="6dp"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:background="@color/darktGray"
+            android:layout_marginBottom="4dp"/>
+        <TextView
+            android:id="@+id/tv_nearby_allmoney"
+            android:layout_width="188dp"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:text="¥ 0.00"
+            android:textColor="@color/orange"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_nearby_allnum"
+            android:layout_width="0dp"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="去结算（0）"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>

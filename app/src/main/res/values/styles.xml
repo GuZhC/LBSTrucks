@@ -1,0 +1,40 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SwitchCompat.Control" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorSwitchThumbNormal">@color/white</item>
+        <item name="android:colorForeground">#2ee7ff</item>
+    </style>
+
+    <style name="SwitchCompat.Text" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <!--去掉边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--悬浮-->
+        <item name="android:windowIsFloating">true</item>
+        <!--半透明-->
+        <item name="android:windowIsTranslucent">false</item>
+        <!--不需要标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--允许模糊-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--全屏幕-->
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+</resources>

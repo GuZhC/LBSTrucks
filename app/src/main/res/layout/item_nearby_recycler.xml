@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="90dp"
+    app:cardCornerRadius="6dp"
+    android:elevation="8dp"
+    android:layout_margin="6dp">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            app:cardCornerRadius="3dp"
+            >
+
+            <ImageView
+                android:id="@+id/img_nearby_recycler"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                 />
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="16sp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_nearby_recycler_title"
+                android:layout_width="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="16sp"
+                android:textColor="@color/textLight"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_nearby_recycler_location"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="6dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                android:textColor="@color/textLight"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_nearby_recycler_goto"
+            android:gravity="center"
+            android:drawableTop="@mipmap/nearby_goto"
+            android:textSize="12sp"
+            android:text=""
+            android:drawablePadding="4dp"
+            android:textColor="@color/textLight"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
