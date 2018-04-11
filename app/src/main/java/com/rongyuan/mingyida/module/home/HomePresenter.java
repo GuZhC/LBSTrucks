@@ -1,11 +1,7 @@
 package com.rongyuan.mingyida.module.home;
 
-import android.util.Log;
-
-import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.model.CategoryResult;
-import com.rongyuan.mingyida.model.ClassifyBeans;
-import com.rongyuan.mingyida.model.HomeAllModel;
+import com.rongyuan.mingyida.model.NeaberShopModel;
 import com.rongyuan.mingyida.model.PictureModel;
 import com.rongyuan.mingyida.net.NetWork;
 
@@ -38,7 +34,6 @@ public class HomePresenter implements HomeContract.IHomePresenter {
     @Override
     public void subscribe() {
         getBannerData();
-        getRecyclerDataClassify();
         getRecyclerDataHot();
         getRecyclerDataAll();
     }
@@ -111,38 +106,42 @@ public class HomePresenter implements HomeContract.IHomePresenter {
                 });
     }
 
-    @Override
-    public void getRecyclerDataClassify() {
-        String[] text = {"洗车", "保养", "改装", "汽车用品", "分类"};
-        String[] image = {String.valueOf(R.mipmap.home_classify_wash), String.valueOf(R.mipmap.home_classify_maintain),
-                String.valueOf(R.mipmap.home_classify_refit), String.valueOf(R.mipmap.home_classify_other), String.valueOf(R.mipmap.home_classify_all)};
-        List<ClassifyBeans> datas = new ArrayList<>();
-        for (int i = 0; i < text.length; i++) {
-            ClassifyBeans classifyBeans = new ClassifyBeans();
-            classifyBeans.setImgUrl(image[i]);
-            classifyBeans.setTitle(text[i]);
-            datas.add(classifyBeans);
-        }
-        mHomeView.setRecyclerClassify(datas);
-    }
 
     @Override
     public void getRecyclerDataAll() {
-        List<HomeAllModel> datas = new ArrayList<>();
-        for (int i = 0 ; i<3; i++){
-        HomeAllModel data = new HomeAllModel();
-        data.setTitleA("岁月丶竟好？");
-        data.setTitleB("岁月丶静好？");
-        data.setTitleC("岁月丶禁好？");
-        data.setCotentA("岁月丶竟好");
-        data.setCotentB("岁月丶静好");
-        data.setCotentC("岁月丶禁好");
-        data.setImageA("https://ws1.sinaimg.cn/large/610dc034ly1fjgfyxgwgnj20u00gvgmt.jpg");
-        data.setImageB("https://ws1.sinaimg.cn/large/610dc034ly1fj3w0emfcbj20u011iabm.jpg");
-        data.setImageC("https://ws1.sinaimg.cn/large/610dc034ly1fhj5228gwdj20u00u0qv5.jpg");
-        datas.add(data);
+
+        List<NeaberShopModel> data = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            NeaberShopModel neaberShopModel = new NeaberShopModel();
+            switch (i) {
+                case 0:
+                    neaberShopModel.setImageUrl("https://ws1.sinaimg.cn/large/610dc034ly1fis7dvesn6j20u00u0jt4.jpg");
+                    break;
+                case 1:
+                    neaberShopModel.setImageUrl("https://ws1.sinaimg.cn/large/610dc034ly1fir1jbpod5j20ip0newh3.jpg");
+                    break;
+                case 2:
+                    neaberShopModel.setImageUrl("https://ws1.sinaimg.cn/large/610dc034ly1fil82i7zsmj20u011hwja.jpg");
+                    break;
+                case 3:
+                    neaberShopModel.setImageUrl("https://ws1.sinaimg.cn/large/610dc034ly1fik2q1k3noj20u00u07wh.jpg");
+                    break;
+                case 4:
+                    neaberShopModel.setImageUrl("https://ws1.sinaimg.cn/large/610dc034ly1fiiiyfcjdoj20u00u0ju0.jpg");
+                    break;
+                case 5:
+                    neaberShopModel.setImageUrl("https://ws1.sinaimg.cn/large/610dc034ly1fiednrydq8j20u011itfz.jpg");
+                    break;
+                default:
+                    neaberShopModel.setImageUrl("https://ws1.sinaimg.cn/large/610dc034ly1fiiiyfcjdoj20u00u0ju0.jpg");
+                    break;
+            }
+            neaberShopModel.setTitle(i + "98 ? ");
+            neaberShopModel.setLocation("不收定金，货到付款。");
+            neaberShopModel.setDistance(i + "66 米 ");
+            data.add(neaberShopModel);
         }
-        mHomeView.setRecyclerall(datas);
+        mHomeView.setRecyclerall(data);
     }
 
     @Override

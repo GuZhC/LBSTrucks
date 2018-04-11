@@ -32,7 +32,6 @@ public interface NearbyContract {
          */
         void showLocationChange(LocationInfo locationInfo);
 
-        void setRecycler(List<NeaberShopModel> data);
     }
 
     interface INearbyPresenter extends BasePresenter {
@@ -44,6 +43,5 @@ public interface NearbyContract {
          */
         void fetchNearShops(double latitude, double longitude);
 
-        void getRecyclerData();
     }
 }

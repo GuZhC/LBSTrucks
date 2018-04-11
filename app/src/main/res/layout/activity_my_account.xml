@@ -49,6 +49,7 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/et_me_change_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="6dp"
@@ -65,7 +66,7 @@
                 android:background="@color/darktGray" />
 
             <LinearLayout
-
+                android:id="@+id/ll_me_change_phone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -93,7 +94,7 @@
                 android:background="@color/darktGray" />
 
             <LinearLayout
-                android:id="@+id/l_me_news"
+                android:id="@+id/ll_me_change_psw"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -144,6 +145,21 @@
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="0.5dp"-->
             <!--android:background="@color/darktGray" />-->
+
+
+            <Button
+                android:id="@+id/btn_me_account_out"
+                android:layout_width="240dp"
+                android:layout_marginTop="96dp"
+                android:clickable="false"
+                android:layout_height="44dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/shape_circle_btn_bg"
+                android:gravity="center"
+                android:text="退出登录"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

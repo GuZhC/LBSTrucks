@@ -4,6 +4,7 @@ import com.rongyuan.mingyida.base.BasePresenter;
 import com.rongyuan.mingyida.base.BaseView;
 import com.rongyuan.mingyida.model.ClassifyBeans;
 import com.rongyuan.mingyida.model.HomeAllModel;
+import com.rongyuan.mingyida.model.NeaberShopModel;
 import com.rongyuan.mingyida.model.PictureModel;
 
 import java.util.List;
@@ -19,18 +20,16 @@ public interface HomeContract {
 
         void setBanner(List<String> imgUrls);
 
-        void setRecyclerClassify(List<ClassifyBeans> itemdata);
 
         void setRecyclerHot(List<PictureModel> itemdata);
 
-        void setRecyclerall(List<HomeAllModel> itemdata);
+        void setRecyclerall(List<NeaberShopModel> itemdata);
     }
 
     interface IHomePresenter extends BasePresenter{
 
         void getRecyclerDataHot();
 
-        void getRecyclerDataClassify();
 
         void getRecyclerDataAll();
 

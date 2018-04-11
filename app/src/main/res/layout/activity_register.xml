@@ -23,7 +23,7 @@
             android:textSize="16sp"
             app:kswTextExtra="40dp"
             app:kswTextOff="会员"
-            app:kswTextOn="商家" />
+            app:kswTextOn="司机" />
 
         <EditText
             android:id="@+id/et_register_name"
@@ -173,7 +173,7 @@
                 android:layout_marginTop="18dp"
                 android:checked="true"
                 android:gravity="center_vertical"
-                android:text="请上传身份证信息和营业执照"
+                android:text="请上传驾驶证和行驶证照片"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 

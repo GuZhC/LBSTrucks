@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.base.BaseFragment;
 import com.rongyuan.mingyida.module.login.LoginActivity;
+import com.rongyuan.mingyida.module.me.account.MyAccountActivity;
 import com.rongyuan.mingyida.module.me.cartinfo.MyCartInfoActivity;
 import com.rongyuan.mingyida.utils.ToastUtils;
 
@@ -119,7 +120,7 @@ public class MeFragment extends BaseFragment {
                 ToastUtils.showInfo(getContext(), "click");
                 break;
             case R.id.l_me_safety:
-                ToastUtils.showInfo(getContext(), "click");
+              startActivity(new Intent(getContext(), MyAccountActivity.class));
                 break;
             case R.id.l_me_news:
                 ToastUtils.showInfo(getContext(), "click");

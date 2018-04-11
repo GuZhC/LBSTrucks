@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rongyuan.mingyida.R;
@@ -18,6 +19,9 @@ import butterknife.OnClick;
 
 public class ForgetPswActivity extends BaseActivity {
 
+    public static final int CHANGE_PHONE = 1;
+    public static final int CHANGE_PSW = 0;
+
     @BindView(R.id.et_fogetpsw_phone)
     EditText etFogetpswPhone;
     @BindView(R.id.et_fogetpsw_code)
@@ -30,6 +34,10 @@ public class ForgetPswActivity extends BaseActivity {
     EditText etFogetpswPswtwo;
     @BindView(R.id.btn_fogetpsw_ok)
     Button btnFogetpswOk;
+    @BindView(R.id.ll_me_new_psw)
+    LinearLayout llMeNewPsw;
+    @BindView(R.id.ll_me_new_psw_again)
+    LinearLayout llMeNewPswAgain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +45,16 @@ public class ForgetPswActivity extends BaseActivity {
         setContentView(R.layout.activity_forget_psw);
         ButterKnife.bind(this);
         setBackBtn();
-        setTitle("忘记密码");
+        if (getIntent().getIntExtra("CHANGE_TYPE", CHANGE_PSW) == CHANGE_PHONE) {
+            setTitle("换绑手机");
+            llMeNewPsw.setVisibility(View.GONE);
+            llMeNewPswAgain.setVisibility(View.GONE);
+        } else {
+            setTitle("修改密码");
+            llMeNewPsw.setVisibility(View.VISIBLE);
+            llMeNewPswAgain.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @OnClick({R.id.tv_fogetpsw_getcode, R.id.btn_fogetpsw_ok})

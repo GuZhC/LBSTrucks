@@ -210,7 +210,7 @@
                     android:gravity="center"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:text="退款/售后"
+                    android:text="售后"
                     android:textColor="@color/textBlack"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -221,6 +221,7 @@
                 android:background="@color/backgroundGray" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/l_me_location"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
@@ -267,7 +268,7 @@
                     android:layout_weight="1"
                     android:drawableLeft="@mipmap/me_safety"
                     android:drawablePadding="8dp"
-                    android:text="账户无安全"
+                    android:text="账户与安全"
                     android:textColor="@color/textBlack"
                     android:textSize="14sp" />
 
@@ -331,7 +332,7 @@
                     android:layout_weight="1"
                     android:drawableLeft="@mipmap/me_aboutme"
                     android:drawablePadding="8dp"
-                    android:text="关于配易通"
+                    android:text="关于我们"
                     android:textColor="@color/textBlack"
                     android:textSize="14sp" />
 

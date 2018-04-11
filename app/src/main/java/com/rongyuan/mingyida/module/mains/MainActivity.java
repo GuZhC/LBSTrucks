@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.rongyuan.mingyida.R;
-import com.rongyuan.mingyida.module.cart.CartFragment;
 import com.rongyuan.mingyida.module.home.HomeFragment;
 import com.rongyuan.mingyida.module.me.MeFragment;
 import com.rongyuan.mingyida.module.nearby.NearbyFragment;
@@ -16,7 +15,6 @@ import com.rongyuan.mingyida.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationBar mBottomNavigationBar;
@@ -47,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         mBottomNavigationBar
                 .addItem(new BottomNavigationItem(R.mipmap.main_icon_one, R.string.tab_one).setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.mipmap.main_icon_two, R.string.tab_two).setActiveColorResource(R.color.colorPrimary))
-                .addItem(new BottomNavigationItem(R.mipmap.main_icon_three, R.string.tab_three).setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.mipmap.main_icon_four, R.string.tab_four).setActiveColorResource(R.color.colorPrimary))
                 .setFirstSelectedPosition(0)//设置默认选择的按钮
                 .initialise();//所有的设置需在调用该方法前完成
@@ -87,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment());
         adapter.addFragment(new NearbyFragment());
-        adapter.addFragment(new CartFragment());
         adapter.addFragment(new MeFragment());
         viewPager.setAdapter(adapter);
     }

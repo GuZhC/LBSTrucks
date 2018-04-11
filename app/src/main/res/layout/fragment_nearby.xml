@@ -14,7 +14,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:text="附近修理店"
+            android:text="附近的车"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </android.support.v7.widget.Toolbar>
@@ -24,27 +24,8 @@
     <!--  地图容器-->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="match_parent"
         android:id="@+id/map_container"
         />
-    <TextView
-        android:id="@+id/nearby_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@mipmap/nearby_city"
-        android:drawablePadding="8dp"
-        android:textColor="@color/textBlack"
-        android:drawableRight="@mipmap/nearby_arrows"
-        android:padding="8dp"
-        android:text=""
-        android:textSize="14sp" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/darktGray" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/nearby_recycler"
-        android:layout_width="match_parent"
-        android:background="@color/lightbackgrand"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
 </LinearLayout>

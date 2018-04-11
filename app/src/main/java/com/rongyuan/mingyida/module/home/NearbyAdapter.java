@@ -1,4 +1,4 @@
-package com.rongyuan.mingyida.module.nearby;
+package com.rongyuan.mingyida.module.home;
 
 import android.support.annotation.Nullable;
 import android.widget.ImageView;

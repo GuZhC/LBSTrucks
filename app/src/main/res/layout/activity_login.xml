@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="80dp"
             android:gravity="center"
-            android:text="商家"
+            android:text="司机"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </LinearLayout>

@@ -15,18 +15,21 @@ import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.base.BaseFragment;
 import com.rongyuan.mingyida.model.ClassifyBeans;
 import com.rongyuan.mingyida.model.HomeAllModel;
+import com.rongyuan.mingyida.model.NeaberShopModel;
 import com.rongyuan.mingyida.model.PictureModel;
 import com.rongyuan.mingyida.module.classify.ClassifyActivity;
 import com.rongyuan.mingyida.module.goods.AllGoodsActivity;
 import com.rongyuan.mingyida.module.goods.goodsdetails.GoodsDetailsActivity;
 import com.rongyuan.mingyida.module.servingproduct.AllservicesActivity;
 import com.rongyuan.mingyida.module.servingproduct.servedetails.ServeDetailsActivity;
+import com.rongyuan.mingyida.module.store.StoreDetailsActivity;
 import com.rongyuan.mingyida.utils.GlideImageLoader;
 import com.rongyuan.mingyida.utils.ToastUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,8 +51,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
 
     @BindView(R.id.ed_home_search)
     TextView edHomeSearch;
-    @BindView(R.id.home_recycler_classify)
-    RecyclerView homeRecyclerClassify;
     @BindView(R.id.home_recycler_hot)
     RecyclerView homeRecyclerHot;
     @BindView(R.id.home_recycler_all)
@@ -57,9 +58,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
     Unbinder unbinder;
 
     private HomePresenter mHomePresenter;
-    ClassifyAdapter mClassifyAdapter;
     HotAdapter mHotAdapter;
-    AllAdapter mAllAdapter;
+    NearbyAdapter mAllAdapter;
 
     //
     @Override
@@ -88,46 +88,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
         mBanner.setImages(imgUrls).setImageLoader(new GlideImageLoader()).start();
     }
 
-    @Override
-    public void setRecyclerClassify(List<ClassifyBeans> itemdata) {
-        mClassifyAdapter = new ClassifyAdapter(itemdata);
-        mClassifyAdapter.openLoadAnimation();
-        mClassifyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                ToastUtils.showSuccess(getContext(), "点击" + position);
-                switch (position) {
-                    case 0:
-                        Intent intentA  = new Intent(getContext(), AllservicesActivity.class);
-                        intentA.putExtra("toolbarTitle","洗车");
-                        startActivity(intentA);
-                        break;
-                    case 1:
-                        Intent intentB  = new Intent(getContext(), AllservicesActivity.class);
-                        intentB.putExtra("toolbarTitle","保养");
-                        startActivity(intentB);
-                        break;
-                    case 2:
-                        Intent intentC  = new Intent(getContext(), AllservicesActivity.class);
-                        intentC.putExtra("toolbarTitle","改装");
-                        startActivity(intentC);
-                        break;
-                    case 3:
-                        Intent intentD  = new Intent(getContext(), AllGoodsActivity.class);
-                        intentD.putExtra("toolbarTitle","汽车用品");
-                        startActivity(intentD);
-                        break;
-                    case 4:
-                        startActivity(new Intent(getContext(), ClassifyActivity.class));
-                        break;
-                }
-            }
-        });
-        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 5);
-        homeRecyclerClassify.setLayoutManager(linearLayoutManager);
-        homeRecyclerClassify.setNestedScrollingEnabled(false);
-        homeRecyclerClassify.setAdapter(mClassifyAdapter);
-    }
+
 
     @Override
     public void setRecyclerHot(List<PictureModel> itemdata) {
@@ -147,31 +108,35 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
     }
 
     @Override
-    public void setRecyclerall(List<HomeAllModel> itemdata) {
-        mAllAdapter = new AllAdapter(itemdata);
-        mAllAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+    public void setRecyclerall(List<NeaberShopModel> itemdata) {
+        mAllAdapter = new NearbyAdapter(itemdata);
+        mAllAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         mAllAdapter.isFirstOnly(true);
+        mAllAdapter.setNotDoAnimationCount(3);
+        homeRecyclerAll.setLayoutManager(new LinearLayoutManager(getContext()));
+        homeRecyclerAll.setAdapter(mAllAdapter);
+        homeRecyclerAll.setNestedScrollingEnabled(false);
+        mAllAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(getContext(), StoreDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+
         mAllAdapter.setOnItemChildClickListener(
                 new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        switch (view.getId()) {
-                            case R.id.layout_home_one:
-                                ToastUtils.showInfo(getContext(), "one" + position);
-                                break;
-                            case R.id.layout_home_two:
-                                ToastUtils.showInfo(getContext(), "two" + position);
-                                break;
-                            case R.id.layout_home_three:
-                                ToastUtils.showInfo(getContext(), "three" + position);
+                        switch (view.getId()){
+                            case R.id.tv_nearby_recycler_goto:
+                                ToastUtils.showInfo(getContext(),"goto"+position);
                                 break;
                         }
                     }
                 }
         );
-        homeRecyclerAll.setLayoutManager(new LinearLayoutManager(getContext()));
-        homeRecyclerAll.setNestedScrollingEnabled(false);
-        homeRecyclerAll.setAdapter(mAllAdapter);
+
     }
 
     @Override

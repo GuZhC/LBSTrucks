@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.model.NeaberShopModel;
-import com.rongyuan.mingyida.module.nearby.NearbyAdapter;
+import com.rongyuan.mingyida.module.home.NearbyAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
