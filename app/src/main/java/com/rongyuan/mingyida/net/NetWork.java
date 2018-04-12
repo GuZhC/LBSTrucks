@@ -25,7 +25,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetWork {
 
-    public static final String ROOT_URL = "http://192.168.0.105:8080/a/public/index.php/apis/";
+//    public static final String ROOT_URL = "http://192.168.0.105:8080/a/public/index.php/apis/";
+    public static final String ROOT_URL = "http://www.liuchuan95.cn:3000";
 
     private static GankApi gankApi;
     private static LoginApi mLoginApi;

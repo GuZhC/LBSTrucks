@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -14,10 +15,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -25,6 +28,12 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.base.BaseActivity;
+import com.rongyuan.mingyida.common.http.API;
+import com.rongyuan.mingyida.common.http.IHttpClient;
+import com.rongyuan.mingyida.common.http.IRequest;
+import com.rongyuan.mingyida.common.http.IResponse;
+import com.rongyuan.mingyida.common.http.impl.BaseRequest;
+import com.rongyuan.mingyida.common.http.impl.OkHttpClientImpl;
 import com.rongyuan.mingyida.model.BaseModel;
 import com.rongyuan.mingyida.model.RegisterModel;
 import com.rongyuan.mingyida.net.NetWork;
@@ -34,13 +43,13 @@ import com.rongyuan.mingyida.utils.ToastUtils;
 import com.rongyuan.mingyida.utils.countDownTimer;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import rx.Observer;
@@ -142,63 +151,42 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void doPoast(boolean isMember) {
-        List<MultipartBody.Part> params = new ArrayList<>();
-        RequestBody requestBodyA = null;
-        RequestBody requestBodyB = null;
-        MultipartBody.Part which = MultipartBody.Part.createFormData("which", Role);
-        MultipartBody.Part trueneme = MultipartBody.Part.createFormData("truename", truename);
-        MultipartBody.Part username = MultipartBody.Part.createFormData("username", phone);
-        MultipartBody.Part nice = MultipartBody.Part.createFormData("nice", mMame);
-        MultipartBody.Part anth_code = MultipartBody.Part.createFormData("auth_code", mAuthCode);
-        MultipartBody.Part anth_code_type = MultipartBody.Part.createFormData("auth_code_type", "register");
-        MultipartBody.Part password = MultipartBody.Part.createFormData("password", mPassword);
-        params.add(which);
+        MyLoader.showLoading(this);
+        RegisterModel registerModel = new RegisterModel();
+        IRequest request = new BaseRequest(API.TEST_DOMAIN);
+        IHttpClient httpClient = new OkHttpClientImpl();
+
+        request.setBody("class", "user");
+        request.setBody("name", mMame);
+        request.setBody("phone_number",phone);
+        request.setBody("account", phone);
+        request.setBody("password",mPassword);
 
         if (!isMember) {
-            if ((fileA != null && fileA.exists()) && (fileB != null && fileB.exists())) {
-                requestBodyA = RequestBody.create(MediaType.parse("image/*"), fileA);
-                requestBodyB = RequestBody.create(MediaType.parse("image/*"), fileB);
-            }
-            params.add(trueneme);
+            request.setBody("mark", "driver");
             ToastUtils.showInfo(RegisterActivity.this, "图片上传，可能比较耗时");
+        }else {
+            request.setBody("mark", "member");
         }
-        params.add(username);
-        params.add(nice);
-        params.add(anth_code);
-        params.add(anth_code_type);
-        params.add(password);
 
-        MyLoader.showLoading(RegisterActivity.this);
-        mSubscription = NetWork.getRegisterApi()
-                .Regisetr(requestBodyA, requestBodyB, params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<RegisterModel>() {
-                    @Override
-                    public void onCompleted() {
-                        MyLoader.stopLoading();
-                    }
+        IResponse response = httpClient.post(request,false);
+        Log.d(TAG, "doPoast: "+response.getData());
+        try{
+            registerModel =  new Gson().fromJson(response.getData(),RegisterModel.class);
+        }catch (RuntimeException e){
+            Toast.makeText(this, response.getData().toString(), Toast.LENGTH_SHORT).show();
+        }
+        MyLoader.stopLoading();
+        if (registerModel != null) {
+            if (registerModel.getCode() == 1) {
+                ToastUtils.showSuccess(RegisterActivity.this, "注册成功");
+            } else {
+                ToastUtils.showError(RegisterActivity.this,"注册失败");
+            }
+        } else {
+            ToastUtils.showError(RegisterActivity.this,"注册失败");
+        }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        MyLoader.stopLoading();
-                        Common.ShouwError(RegisterActivity.this);
-                    }
-
-                    @Override
-                    public void onNext(RegisterModel registerModel) {
-                        MyLoader.stopLoading();
-                        if (registerModel != null) {
-                            if (registerModel.getCode() == 0) {
-                                ToastUtils.showSuccess(RegisterActivity.this, "注册成功");
-                            } else {
-                                ToastUtils.showError(RegisterActivity.this, registerModel.getHint());
-                            }
-                        } else {
-                            Common.ShouwError(RegisterActivity.this);
-                        }
-                    }
-                });
 
     }
 

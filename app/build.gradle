@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.mob.sdk'
 
 android {
     compileSdkVersion 26
@@ -20,6 +21,12 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
+}
+MobSDK {
+    appKey "252f7c2f392e8"
+    appSecret "1fa54d7151b5df9ce364a67e8dad7099"
+
+    SMSSDK {}
 }
 
 dependencies {
@@ -49,6 +56,9 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
+
     //ui
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'

@@ -13,15 +13,15 @@ public class RegisterModel {
      * hint : 登陆成功
      */
 
-    private int code;
+    private int result;
     private String hint;
 
     public int getCode() {
-        return code;
+        return result;
     }
 
     public void setCode(int code) {
-        this.code = code;
+        this.result = code;
     }
 
     public String getHint() {
