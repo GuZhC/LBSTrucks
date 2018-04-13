@@ -1,6 +1,7 @@
 package com.rongyuan.mingyida;
 
 import com.google.gson.Gson;
+import com.rongyuan.mingyida.common.databus.RxBus;
 import com.rongyuan.mingyida.common.http.API;
 import com.rongyuan.mingyida.common.http.IHttpClient;
 import com.rongyuan.mingyida.common.http.IRequest;
@@ -8,6 +9,7 @@ import com.rongyuan.mingyida.common.http.IResponse;
 import com.rongyuan.mingyida.common.http.impl.BaseRequest;
 import com.rongyuan.mingyida.common.http.impl.OkHttpClientImpl;
 import com.rongyuan.mingyida.model.RegisterModel;
+import com.rongyuan.mingyida.model.RejisterBean;
 
 import org.junit.Test;
 
@@ -16,6 +18,8 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import rx.functions.Func1;
 
 /**
  * Created by GuZhongCai on 2018/4/12.
@@ -71,20 +75,25 @@ public class test {
 
     @Test
     public void testOKhttp(){
-        RegisterModel registerModel = new RegisterModel();
-        IRequest request = new BaseRequest(API.TEST_DOMAIN);
-        IHttpClient httpClient = new OkHttpClientImpl();
-        request.setBody("class", "user");
-        request.setBody("mark", "register");
-        request.setBody("name", "register");
-        request.setBody("phone_number", "12345678");
-        request.setBody("account", "12456");
-        request.setBody("password", "123456");
+        RejisterBean rejisterBean = new Gson().fromJson("{\"code\":200,\"data\":1,\"mes\":\"\"}", RejisterBean.class);
+        System.out.print(rejisterBean.getData()+" "+rejisterBean.getCode());
 
-        IResponse response = httpClient.post(request,false);
-       System.out.print(response.getCode()+"|||"+ response.getData());
+//        RegisterModel registerModel = new RegisterModel();
+//        IRequest request = new BaseRequest(API.TEST_DOMAIN);
+//        IHttpClient httpClient = new OkHttpClientImpl();
+//        request.setBody("class", "user");
+//        request.setBody("mark", "register");
+//        request.setBody("name", "register");
+//        request.setBody("phone_number", "12345678");
+//        request.setBody("account", "12456");
+//        request.setBody("password", "123456");
+//
+//        IResponse response = httpClient.post(request,false);
+//       System.out.print(response.getCode()+"|||"+ response.getData());
 
     }
+
+
 
 
 }

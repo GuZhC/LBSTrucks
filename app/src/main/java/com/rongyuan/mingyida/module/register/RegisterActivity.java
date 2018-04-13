@@ -4,8 +4,9 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -15,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -28,34 +28,28 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.base.BaseActivity;
+import com.rongyuan.mingyida.common.databus.RegisterBus;
+import com.rongyuan.mingyida.common.databus.RxBus;
 import com.rongyuan.mingyida.common.http.API;
 import com.rongyuan.mingyida.common.http.IHttpClient;
 import com.rongyuan.mingyida.common.http.IRequest;
 import com.rongyuan.mingyida.common.http.IResponse;
 import com.rongyuan.mingyida.common.http.impl.BaseRequest;
 import com.rongyuan.mingyida.common.http.impl.OkHttpClientImpl;
-import com.rongyuan.mingyida.model.BaseModel;
-import com.rongyuan.mingyida.model.RegisterModel;
-import com.rongyuan.mingyida.net.NetWork;
-import com.rongyuan.mingyida.ui.MyLoader;
-import com.rongyuan.mingyida.utils.Common;
+import com.rongyuan.mingyida.model.RejisterBean;
 import com.rongyuan.mingyida.utils.ToastUtils;
 import com.rongyuan.mingyida.utils.countDownTimer;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import rx.Observer;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import rx.functions.Func1;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -107,6 +101,35 @@ public class RegisterActivity extends BaseActivity {
     private int mLayoutHeight = 0;  //动画执行的padding高度
     boolean mSwitchButtonChick = false;
 
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.arg1) {
+                case 0:
+                    ToastUtils.showSuccess(RegisterActivity.this, "发送成功，请注意查收");
+                    handler.removeMessages(0);
+                    break;
+                case 1:
+                    ToastUtils.showError(RegisterActivity.this, "发送失败，稍后再试");
+                    handler.removeMessages(1);
+                    break;
+                case 2:
+                    ToastUtils.showSuccess(RegisterActivity.this, "验证对了");
+                    handler.removeMessages(2);
+                    doRejister(isMember);
+                    break;
+                case 3:
+                    ToastUtils.showWarning(RegisterActivity.this, "验证码获取错误");
+                    handler.removeMessages(3);
+                    break;
+            }
+        }
+    };
+
+
+
+    private boolean havaCode = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,12 +156,14 @@ public class RegisterActivity extends BaseActivity {
             if (isAgree) {
                 if (mPassword.equals(mPasswordTwo)) {
                     if (isMember) {
-                        doPoast(true);
+                        doRejister(isMember);
+//                        doPoast();
                     } else {
                         if (TextUtils.isEmpty(truename) || !isChoseImg) {
                             ToastUtils.showError(RegisterActivity.this, "信息不完整");
                         } else {
-                            doPoast(false);
+                            doRejister(isMember);
+//                            doPoast();
                         }
                     }
                 } else {
@@ -150,70 +175,87 @@ public class RegisterActivity extends BaseActivity {
         }
     }
 
-    private void doPoast(boolean isMember) {
-        MyLoader.showLoading(this);
-        RegisterModel registerModel = new RegisterModel();
-        IRequest request = new BaseRequest(API.TEST_DOMAIN);
-        IHttpClient httpClient = new OkHttpClientImpl();
-
-        request.setBody("class", "user");
-        request.setBody("name", mMame);
-        request.setBody("phone_number",phone);
-        request.setBody("account", phone);
-        request.setBody("password",mPassword);
-
-        if (!isMember) {
-            request.setBody("mark", "driver");
-            ToastUtils.showInfo(RegisterActivity.this, "图片上传，可能比较耗时");
+    private void doPoast() {
+        if (havaCode){
+            SMSSDK.submitVerificationCode("86", phone, mAuthCode);
         }else {
-            request.setBody("mark", "member");
+            ToastUtils.showWarning(RegisterActivity.this, "验证码错误");
         }
-
-        IResponse response = httpClient.post(request,false);
-        Log.d(TAG, "doPoast: "+response.getData());
-        try{
-            registerModel =  new Gson().fromJson(response.getData(),RegisterModel.class);
-        }catch (RuntimeException e){
-            Toast.makeText(this, response.getData().toString(), Toast.LENGTH_SHORT).show();
-        }
-        MyLoader.stopLoading();
-        if (registerModel != null) {
-            if (registerModel.getCode() == 1) {
-                ToastUtils.showSuccess(RegisterActivity.this, "注册成功");
-            } else {
-                ToastUtils.showError(RegisterActivity.this,"注册失败");
-            }
-        } else {
-            ToastUtils.showError(RegisterActivity.this,"注册失败");
-        }
-
-
     }
 
+    private void doRejister(final boolean isMember) {
+        RxBus.getInstance().chainProcess(new Func1() {
+
+            @Override
+            public Object call(Object o) {
+                IHttpClient mHttpClient = new OkHttpClientImpl();
+                IRequest request = new BaseRequest(API.TEST_DOMAIN);
+                if (isMember)
+                    request.setBody("class","user");
+                    else
+                    request.setBody("class","driver");
+                    request.setBody("mark","register");
+                    request.setBody("name",mMame);
+                    request.setBody("phone_number",phone);
+                    request.setBody("account",phone);
+                    request.setBody("password",mPassword);
+                IResponse response = mHttpClient.post(request,false);
+                RejisterBean  rejisterBean = new RejisterBean();
+                if (response.getCode() == 200) {
+                      rejisterBean = new Gson().fromJson("{\"code\":200,\"data\":1,\"mes\":\"\"}", RejisterBean.class);
+                    int code = rejisterBean.getCode();
+//                    ToastUtils.showInfo(RegisterActivity.this ,code+" ");
+                    return rejisterBean;
+                }else {
+                    rejisterBean.setCode(200);
+                    rejisterBean.setData(1);
+                }
+                return rejisterBean;
+            }
+        });
+    }
+
+    @RegisterBus
+    public void isOk(RejisterBean rejisterBean){
+        if (rejisterBean!=null){
+            if (rejisterBean.getData()==1)
+                ToastUtils.showInfo(RegisterActivity.this,"注册成功");
+            else
+            ToastUtils.showInfo(RegisterActivity.this,"失败"+rejisterBean.getMes());
+        }else
+            ToastUtils.showInfo(RegisterActivity.this,"注册失败");
+    }
+
+
     public void getRegisterCode() {
-        mSubscription = NetWork.getCodeApi()
-                .getCode(phone, "register")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseModel>() {
-                    @Override
-                    public void onCompleted() {
+        havaCode = true;
+// 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
+        // 注册一个事件回调，用于处理发送验证码操作的结果
+        SMSSDK.registerEventHandler(new EventHandler() {
+            public void afterEvent(int event, int result, Object data) {
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                        //提交验证码成功
+                        sendMsg(2);
+                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                        sendMsg(0);
                     }
+                } else {
+                    sendMsg(3);
+                }
+            }
+        });
+        // 触发操作
+        SMSSDK.getVerificationCode("86", phone);
+    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Common.ShouwError(RegisterActivity.this);
-                    }
-
-                    @Override
-                    public void onNext(BaseModel baseModel) {
-                        if (baseModel != null) {
-                            ToastUtils.showInfo(RegisterActivity.this, baseModel.code + " " + baseModel.hint + " ");
-                        } else {
-                            ToastUtils.showInfo(RegisterActivity.this, baseModel.code + " " + baseModel.hint + " ");
-                        }
-                    }
-                });
+    private void sendMsg(int i) {
+        if (handler.hasMessages(i)){
+            handler.removeMessages(i);
+        }
+        Message message = new Message();
+        message.arg1 = i;
+        handler.sendMessage(message);
     }
 
     private void initShowHide() {
@@ -364,5 +406,6 @@ public class RegisterActivity extends BaseActivity {
         if (mSubscription != null && !mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
+        SMSSDK.unregisterAllEventHandler();
     }
 }

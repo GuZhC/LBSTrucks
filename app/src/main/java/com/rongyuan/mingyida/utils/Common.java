@@ -28,4 +28,5 @@ public class Common {
     public static void ShouwError(Context context){
         ToastUtils.showError(context,"服务器繁忙，稍后再试");
     }
+
 }
