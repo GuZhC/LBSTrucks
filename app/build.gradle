@@ -58,6 +58,8 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
 
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
+//    compile 'com.lzy.net:okgo:3.0.4'
+
 
     //ui
     compile 'com.youth.banner:banner:1.4.10'

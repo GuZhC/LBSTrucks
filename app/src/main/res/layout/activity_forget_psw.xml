@@ -33,10 +33,12 @@
     <View
         android:layout_width="250dp"
         android:layout_height="0.5dp"
-        android:layout_marginLeft="18dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="18dp"
         android:background="@color/colorPrimary" />
+
     <LinearLayout
+        android:id="@+id/ll_get_code"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
@@ -59,23 +61,60 @@
             android:background="@null"
             android:hint="请输入验证码"
             android:textColor="@color/textBlack" />
+
         <TextView
             android:id="@+id/tv_fogetpsw_getcode"
-            android:text="获取验证码"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:paddingRight="4dp"
-            android:textSize="16sp"
+            android:text="获取验证码"
             android:textColor="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <View
         android:layout_width="250dp"
         android:layout_height="0.5dp"
-        android:layout_marginLeft="18dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="18dp"
         android:background="@color/colorPrimary" />
+
+    <LinearLayout
+        android:id="@+id/ll_me_old_psw"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="26dp"
+        android:paddingRight="26dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/forget_psw_psw" />
+
+        <EditText
+            android:id="@+id/et_old_psw"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请输入旧密码"
+            android:inputType="textPassword"
+            android:textColor="@color/textBlack" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="250dp"
+        android:layout_height="0.5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="18dp"
+        android:background="@color/colorPrimary" />
+
     <LinearLayout
         android:id="@+id/ll_me_new_psw"
         android:layout_width="match_parent"
@@ -99,15 +138,17 @@
             android:layout_weight="1"
             android:background="@null"
             android:hint="请输入新密码"
+            android:inputType="textPassword"
             android:textColor="@color/textBlack" />
     </LinearLayout>
 
     <View
         android:layout_width="250dp"
         android:layout_height="0.5dp"
-        android:layout_marginLeft="18dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="18dp"
         android:background="@color/colorPrimary" />
+
     <LinearLayout
         android:id="@+id/ll_me_new_psw_again"
         android:layout_width="match_parent"
@@ -131,24 +172,25 @@
             android:layout_weight="1"
             android:background="@null"
             android:hint="请再次输入新密码"
+            android:inputType="textPassword"
             android:textColor="@color/textBlack" />
     </LinearLayout>
 
     <View
         android:layout_width="250dp"
         android:layout_height="0.5dp"
-        android:layout_marginLeft="18dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="18dp"
         android:background="@color/colorPrimary" />
-    
+
     <Button
         android:id="@+id/btn_fogetpsw_ok"
+        android:layout_width="330dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
-        android:layout_width="330dp"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:text="确认修改"
         android:background="@drawable/shape_circle_fogetpsw_btn_bg"
-        android:layout_height="40dp" />
+        android:text="确认修改"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 </LinearLayout>

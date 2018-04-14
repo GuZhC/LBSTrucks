@@ -55,7 +55,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="18dp"
             android:background="@null"
-            android:digits="1234567890"
             android:drawableLeft="@mipmap/login_icon_phone"
             android:drawablePadding="16dp"
             android:hint="电话号码"

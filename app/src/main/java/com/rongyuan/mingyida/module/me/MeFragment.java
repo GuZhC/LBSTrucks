@@ -2,6 +2,9 @@ package com.rongyuan.mingyida.module.me;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +13,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.rongyuan.mingyida.App;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.base.BaseFragment;
+import com.rongyuan.mingyida.common.http.API;
+import com.rongyuan.mingyida.common.http.IHttpClient;
+import com.rongyuan.mingyida.common.http.IRequest;
+import com.rongyuan.mingyida.common.http.IResponse;
+import com.rongyuan.mingyida.common.http.impl.BaseRequest;
+import com.rongyuan.mingyida.common.http.impl.OkHttpClientImpl;
+import com.rongyuan.mingyida.common.storage.SharedPreferencesDao;
+import com.rongyuan.mingyida.model.RejisterBean;
+import com.rongyuan.mingyida.model.USerBean;
 import com.rongyuan.mingyida.module.login.LoginActivity;
 import com.rongyuan.mingyida.module.me.account.MyAccountActivity;
 import com.rongyuan.mingyida.module.me.cartinfo.MyCartInfoActivity;
@@ -58,6 +72,36 @@ public class MeFragment extends BaseFragment {
     @BindView(R.id.l_me_aboutme)
     LinearLayout lMeAboutme;
     Unbinder unbinder;
+    private USerBean userBean;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Log.e("meinfo",userBean.toString());
+            if (msg.what==1){
+             if (userBean!=null){
+                 if (userBean.getCode()==200){
+                     if (userBean.getData()!=null){
+                         Glide.with(getContext())
+                                 .load(userBean.getData().getPhoto().toString().trim())
+//                .placeholder(R.drawable.lodingview)
+                                 .into(meHeadImage);
+                         meUserName.setText(userBean.getData().getName());
+                     }else {
+                         Glide.with(getContext())
+                                 .load("https://ws1.sinaimg.cn/large/610dc034ly1fiednrydq8j20u011itfz.jpg")
+//                .placeholder(R.drawable.lodingview)
+                                 .into(meHeadImage);
+                         meUserName.setText("");
+                     }
+
+                 }else {
+                     ToastUtils.showInfo(getContext(),"获取用户信息失败");
+                 }
+             }
+            }
+        }
+    };
 
     @Override
     protected int getContentViewLayoutID() {
@@ -66,11 +110,38 @@ public class MeFragment extends BaseFragment {
 
     @Override
     protected void init(Bundle savedInstanc) {
-        Glide.with(getContext())
-                .load("https://ws1.sinaimg.cn/large/610dc034ly1fiz4ar9pq8j20u010xtbk.jpg")
-//                .placeholder(R.drawable.lodingview)
-                .into(meHeadImage);
-        meUserName.setText("大脸狗");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    IHttpClient mHttpClient = new OkHttpClientImpl();
+                    IRequest request = new BaseRequest(API.TEST_DOMAIN);
+                    SharedPreferencesDao sharedPreferencesDao = new SharedPreferencesDao(App.getInstance(),SharedPreferencesDao.FILE_ACCOUNT);
+
+                    request.setBody("class",  sharedPreferencesDao.get("class"));
+                    request.setBody("mark", "get_basic_info");
+                    request.setBody("user_id",  sharedPreferencesDao.get("id"));
+                    IResponse response = mHttpClient.post(request, false);
+                    if (response.getCode() == 200) {
+                        try{
+                            userBean = new Gson().fromJson(response.getData(), USerBean.class);
+                        }catch (RuntimeException e){
+                            userBean = null;
+                        }
+
+                    } else {
+                        userBean = new USerBean();
+                        userBean.setCode(500);
+                    }
+                    Message message = new Message();
+                    message.what = 1;
+                    handler.sendMessage(message);
+                }
+            }).start();
     }
 
     @Override
@@ -94,9 +165,11 @@ public class MeFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.me_toolbar_set:
                 startActivity(new Intent(getContext(),LoginActivity.class));
+                getActivity().finish();
                 break;
                 case R.id.me_cart_info:
-               startActivity(new Intent(getContext(),MyCartInfoActivity.class));
+                    ToastUtils.showInfo(getContext(), "click");
+//               startActivity(new Intent(getContext(),MyCartInfoActivity.class));
                 break;
             case R.id.me_me_code:
                 ToastUtils.showInfo(getContext(), "click");
@@ -120,7 +193,17 @@ public class MeFragment extends BaseFragment {
                 ToastUtils.showInfo(getContext(), "click");
                 break;
             case R.id.l_me_safety:
-              startActivity(new Intent(getContext(), MyAccountActivity.class));
+                Intent intent = new Intent(getContext(), MyAccountActivity.class);
+                if (userBean!=null){
+                    if (userBean.getData()!=null){
+                        intent.putExtra("imageUrl",userBean.getData().getPhoto().toString().trim());
+                        intent.putExtra("name",userBean.getData().getName());
+                    }else {
+                        intent.putExtra("imageUrl","error");
+                        intent.putExtra("name","name");
+                    }
+                }
+              startActivity(intent );
                 break;
             case R.id.l_me_news:
                 ToastUtils.showInfo(getContext(), "click");

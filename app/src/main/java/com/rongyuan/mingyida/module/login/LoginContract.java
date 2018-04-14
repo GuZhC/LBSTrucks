@@ -17,6 +17,8 @@ public interface LoginContract {
 
         void StopLoading();
 
+        void activityFinish();
+
     }
 
     interface ILoginPresentr extends BasePresenter {

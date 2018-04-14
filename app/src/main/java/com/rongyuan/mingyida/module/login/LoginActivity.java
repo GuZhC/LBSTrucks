@@ -42,7 +42,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.ILoginV
     private String name = "";
     private String psw = "";
     private boolean isRemenberPsw = true;
-    private String Role = "member";
+    private String Role = "user";
     private boolean IsMember = true;
 
     @Override
@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.ILoginV
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_login_chose_member:
-                Role = "member";
+                Role = "user";
                 IsMember = true;
                 tvLoginChoseMember.setTextSize(22);
                 tvLoginChoseMerchant.setTextSize(14);
@@ -110,7 +110,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.ILoginV
 
     public void choseMerchant() {
         IsMember = false;
-        Role = "merchant";
+        Role = "driver";
         tvLoginChoseMember.setTextSize(14);
         tvLoginChoseMerchant.setTextSize(22);
     }
@@ -142,7 +142,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.ILoginV
         }
         finish();
     }
-
+    @Override
+    public void activityFinish(){
+        finish();
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -100,7 +100,7 @@ public class RegisterActivity extends BaseActivity {
 
     private int mLayoutHeight = 0;  //动画执行的padding高度
     boolean mSwitchButtonChick = false;
-
+    RejisterBean rejisterBean;
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -114,7 +114,7 @@ public class RegisterActivity extends BaseActivity {
                     handler.removeMessages(1);
                     break;
                 case 2:
-                    ToastUtils.showSuccess(RegisterActivity.this, "验证对了");
+//                    ToastUtils.showSuccess(RegisterActivity.this, "验证对了");
                     handler.removeMessages(2);
                     doRejister(isMember);
                     break;
@@ -122,10 +122,20 @@ public class RegisterActivity extends BaseActivity {
                     ToastUtils.showWarning(RegisterActivity.this, "验证码获取错误");
                     handler.removeMessages(3);
                     break;
+                case 4:
+                    if (rejisterBean!=null){
+                        if (rejisterBean.getData() ==1){
+                            ToastUtils.showSuccess(RegisterActivity.this, "注册成功");
+                            finish();
+                        }else
+                            ToastUtils.showWarning(RegisterActivity.this, "注册失败");
+                    }else
+                        ToastUtils.showWarning(RegisterActivity.this, "注册失败");
+                    handler.removeMessages(4);
+                    break;
             }
         }
     };
-
 
 
     private boolean havaCode = false;
@@ -156,14 +166,14 @@ public class RegisterActivity extends BaseActivity {
             if (isAgree) {
                 if (mPassword.equals(mPasswordTwo)) {
                     if (isMember) {
-                        doRejister(isMember);
-//                        doPoast();
+//                        doRejister(isMember);
+                        doPoast();
                     } else {
                         if (TextUtils.isEmpty(truename) || !isChoseImg) {
                             ToastUtils.showError(RegisterActivity.this, "信息不完整");
                         } else {
-                            doRejister(isMember);
-//                            doPoast();
+//                            doRejister(isMember);
+                            doPoast();
                         }
                     }
                 } else {
@@ -176,55 +186,67 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void doPoast() {
-        if (havaCode){
+        if (havaCode) {
             SMSSDK.submitVerificationCode("86", phone, mAuthCode);
-        }else {
+        } else {
             ToastUtils.showWarning(RegisterActivity.this, "验证码错误");
         }
     }
 
     private void doRejister(final boolean isMember) {
-        RxBus.getInstance().chainProcess(new Func1() {
-
+        new Thread(new Runnable() {
             @Override
-            public Object call(Object o) {
+            public void run() {
                 IHttpClient mHttpClient = new OkHttpClientImpl();
                 IRequest request = new BaseRequest(API.TEST_DOMAIN);
                 if (isMember)
-                    request.setBody("class","user");
-                    else
-                    request.setBody("class","driver");
-                    request.setBody("mark","register");
-                    request.setBody("name",mMame);
-                    request.setBody("phone_number",phone);
-                    request.setBody("account",phone);
-                    request.setBody("password",mPassword);
-                IResponse response = mHttpClient.post(request,false);
-                RejisterBean  rejisterBean = new RejisterBean();
+                    request.setBody("class", "user");
+                else
+                    request.setBody("class", "driver");
+                request.setBody("mark", "register");
+                request.setBody("name", mMame);
+                request.setBody("phone_number", phone);
+                request.setBody("account", phone);
+                request.setBody("password", mPassword);
+                IResponse response = mHttpClient.post(request, false);
+
                 if (response.getCode() == 200) {
-                      rejisterBean = new Gson().fromJson("{\"code\":200,\"data\":1,\"mes\":\"\"}", RejisterBean.class);
-                    int code = rejisterBean.getCode();
-//                    ToastUtils.showInfo(RegisterActivity.this ,code+" ");
-                    return rejisterBean;
-                }else {
-                    rejisterBean.setCode(200);
-                    rejisterBean.setData(1);
+                    try{
+                        rejisterBean = new Gson().fromJson(response.getData(), RejisterBean.class);
+                    }catch (RuntimeException e){
+                        rejisterBean = null;
+                    }
+
+                } else {
+                    rejisterBean = new RejisterBean();
+                    rejisterBean.setCode(500);
+                    rejisterBean.setData(0);
                 }
-                return rejisterBean;
+                Message message = new Message();
+                message.arg1 = 4;
+                handler.sendMessage(message);
             }
-        });
+        }).start();
+
+//        RxBus.getInstance().chainProcess(new Func1() {
+//
+//            @Override
+//            public Object call(Object o) {
+//
+//            }
+//        });
     }
 
-    @RegisterBus
-    public void isOk(RejisterBean rejisterBean){
-        if (rejisterBean!=null){
-            if (rejisterBean.getData()==1)
-                ToastUtils.showInfo(RegisterActivity.this,"注册成功");
-            else
-            ToastUtils.showInfo(RegisterActivity.this,"失败"+rejisterBean.getMes());
-        }else
-            ToastUtils.showInfo(RegisterActivity.this,"注册失败");
-    }
+//    @RegisterBus
+//    public void isOk(RejisterBean rejisterBean) {
+//        if (rejisterBean != null) {
+//            if (rejisterBean.getData() == 1)
+//                ToastUtils.showInfo(RegisterActivity.this, "注册成功");
+//            else
+//                ToastUtils.showInfo(RegisterActivity.this, "失败" + rejisterBean.getMes());
+//        } else
+//            ToastUtils.showInfo(RegisterActivity.this, "注册失败");
+//    }
 
 
     public void getRegisterCode() {
@@ -250,7 +272,7 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void sendMsg(int i) {
-        if (handler.hasMessages(i)){
+        if (handler.hasMessages(i)) {
             handler.removeMessages(i);
         }
         Message message = new Message();
