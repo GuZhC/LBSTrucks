@@ -4,20 +4,8 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.google.gson.Gson;
-import com.rongyuan.mingyida.common.databus.RxBus;
-import com.rongyuan.mingyida.common.http.API;
-import com.rongyuan.mingyida.common.http.IHttpClient;
-import com.rongyuan.mingyida.common.http.IRequest;
-import com.rongyuan.mingyida.common.http.IResponse;
-import com.rongyuan.mingyida.common.http.impl.BaseRequest;
-import com.rongyuan.mingyida.common.http.impl.OkHttpClientImpl;
-import com.rongyuan.mingyida.model.RejisterBean;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import rx.functions.Func1;
 
 import static org.junit.Assert.*;
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context="com.rongyuan.mingyida.module.me.account.MyAccountActivity">
+    tools:context="com.rongyuan.mingyida.com.dalimao.mingyida.module.me.account.MyAccountActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_me_head_image"

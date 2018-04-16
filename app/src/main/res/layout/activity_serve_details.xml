@@ -326,7 +326,7 @@
                 android:layout_marginBottom="3dp"
                 android:background="@color/darktGray" />
 
-            <com.rongyuan.mingyida.ui.WrapContentHeightViewPager
+            <com.dalimao.mytaxi.ui.WrapContentHeightViewPager
                 android:id="@+id/tv_serve_details_store_viewpage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

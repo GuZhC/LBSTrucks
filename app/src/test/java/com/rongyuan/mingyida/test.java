@@ -1,15 +1,7 @@
 package com.rongyuan.mingyida;
 
 import com.google.gson.Gson;
-import com.rongyuan.mingyida.common.databus.RxBus;
-import com.rongyuan.mingyida.common.http.API;
-import com.rongyuan.mingyida.common.http.IHttpClient;
-import com.rongyuan.mingyida.common.http.IRequest;
-import com.rongyuan.mingyida.common.http.IResponse;
-import com.rongyuan.mingyida.common.http.impl.BaseRequest;
-import com.rongyuan.mingyida.common.http.impl.OkHttpClientImpl;
-import com.rongyuan.mingyida.model.RegisterModel;
-import com.rongyuan.mingyida.model.RejisterBean;
+import com.dalimao.mytaxi.model.RejisterBean;
 
 import org.junit.Test;
 
@@ -18,8 +10,6 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import rx.functions.Func1;
 
 /**
  * Created by GuZhongCai on 2018/4/12.
