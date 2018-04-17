@@ -5,16 +5,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.dalimao.mytaxi.App;
 import com.dalimao.mytaxi.common.http.API;
+import com.dalimao.mytaxi.common.http.BaseBizResponse;
 import com.dalimao.mytaxi.common.http.IHttpClient;
 import com.dalimao.mytaxi.common.http.IRequest;
 import com.dalimao.mytaxi.common.http.IResponse;
 import com.dalimao.mytaxi.common.http.impl.BaseRequest;
+import com.dalimao.mytaxi.common.http.impl.BaseResponse;
 import com.dalimao.mytaxi.common.http.impl.OkHttpClientImpl;
 import com.dalimao.mytaxi.common.storage.SharedPreferencesDao;
+import com.dalimao.mytaxi.model.Account;
 import com.dalimao.mytaxi.model.LoginBean;
+import com.dalimao.mytaxi.model.LoginResponse;
 import com.dalimao.mytaxi.module.mains.MainActivity;
 import com.dalimao.mytaxi.utils.Eds;
 import com.dalimao.mytaxi.utils.ToastUtils;
@@ -42,6 +47,7 @@ public class LoginPresenter implements LoginContract.ILoginPresentr {
             if (msg.what == 1) {
                 if (loginBean != null) {
                     if (loginBean.getData().getIs_login() == 1) {
+                        doMyRegisterLogin();
                         ToastUtils.showSuccess(context, "登录成功");
                         Intent intent = new Intent(context, MainActivity.class);
                         SharedPreferencesDao sharedPreferencesDao =new SharedPreferencesDao(App.getInstance(),SharedPreferencesDao.FILE_ACCOUNT);
@@ -56,6 +62,12 @@ public class LoginPresenter implements LoginContract.ILoginPresentr {
             }
         }
     };
+
+    private void doMyRegisterLogin() {
+
+
+    }
+
     private String mclass = "user";
 
     LoginPresenter(LoginContract.ILoginView loginView, Context context) {
@@ -110,6 +122,7 @@ public class LoginPresenter implements LoginContract.ILoginPresentr {
     public void Login(final String type, final String name, final String psw) {
         mLoginView.ShowLoading();
         mclass = type;
+        String newPsd;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -136,6 +149,39 @@ public class LoginPresenter implements LoginContract.ILoginPresentr {
                 Message message = new Message();
                 message.what = 1;
                 handler.sendMessage(message);
+
+
+                //-----------------------------------------
+                SharedPreferencesDao dao =
+                        new SharedPreferencesDao(App.getInstance().getInstance(),
+                                SharedPreferencesDao.FILE_ACCOUNT);
+                String url = API.Config.getDomain() + API.LOGIN;
+                IRequest requesta = new BaseRequest(url);
+                if (dao.get(name)!=null){
+                    requesta.setBody("password", dao.get(name));
+                }else {
+                    requesta.setBody("password", psw);
+                }
+                requesta.setBody("phone", name);
+
+
+                IResponse responsea = mHttpClient.post(requesta, false);
+//                Log.d(TAG, response.getData());
+
+                LoginResponse bizRes = new LoginResponse();
+                if (responsea.getCode() == BaseResponse.STATE_OK) {
+                    bizRes = new Gson().fromJson(responsea.getData(), LoginResponse.class);
+                    if (bizRes.getCode() == BaseBizResponse.STATE_OK) {
+                        // 保存登录信息
+                        Account account = bizRes.getData();
+
+                        dao.save(SharedPreferencesDao.KEY_ACCOUNT, account);
+                        // 通知 UI
+                    } else if (bizRes.getCode() == BaseBizResponse.STATE_PW_ERR) {
+                    } else {
+                    }
+                } else {
+                }
             }
         }).start();
 //        mSubscription = NetWork.getLoginApi()

@@ -5,7 +5,7 @@ apply plugin: 'com.mob.sdk'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.rongyuan.mingyida"
+        applicationId "com.dalimao.mytaxi"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
@@ -20,6 +20,9 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
+    }
+    dexOptions{
+        jumboMode true
     }
 }
 MobSDK {

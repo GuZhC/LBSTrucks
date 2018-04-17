@@ -121,7 +121,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
                 addLocationMarker();
                 mIsLocate = true;
                 //  获取进行中的订单
-                getProcessingOrder();
+//                getProcessingOrder();
             }
 
 
@@ -789,6 +789,36 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
         }
     }
 
+    /**
+     * 方法必须重写
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        mLbsLayer.onResume();
+    }
+
+    /**
+     * 方法必须重写
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        mLbsLayer.onPause();
+    }
+
+    /**
+     * 方法必须重写
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mLbsLayer.onSaveInstanceState(outState);
+    }
+
+    /**
+     * 方法必须重写
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();

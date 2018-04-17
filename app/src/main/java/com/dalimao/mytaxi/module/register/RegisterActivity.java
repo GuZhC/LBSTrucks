@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -20,23 +21,29 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
+import com.dalimao.mytaxi.App;
+import com.dalimao.mytaxi.R;
+import com.dalimao.mytaxi.base.BaseActivity;
+import com.dalimao.mytaxi.common.http.API;
+import com.dalimao.mytaxi.common.http.BaseBizResponse;
+import com.dalimao.mytaxi.common.http.IHttpClient;
+import com.dalimao.mytaxi.common.http.IRequest;
+import com.dalimao.mytaxi.common.http.IResponse;
+import com.dalimao.mytaxi.common.http.impl.BaseRequest;
+import com.dalimao.mytaxi.common.http.impl.BaseResponse;
+import com.dalimao.mytaxi.common.http.impl.OkHttpClientImpl;
+import com.dalimao.mytaxi.common.storage.SharedPreferencesDao;
+import com.dalimao.mytaxi.model.RegisterResponse;
+import com.dalimao.mytaxi.model.RejisterBean;
+import com.dalimao.mytaxi.utils.DevUtil;
+import com.dalimao.mytaxi.utils.ToastUtils;
+import com.dalimao.mytaxi.utils.countDownTimer;
 import com.google.gson.Gson;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.dalimao.mytaxi.R;
-import com.dalimao.mytaxi.base.BaseActivity;
-import com.dalimao.mytaxi.common.http.API;
-import com.dalimao.mytaxi.common.http.IHttpClient;
-import com.dalimao.mytaxi.common.http.IRequest;
-import com.dalimao.mytaxi.common.http.IResponse;
-import com.dalimao.mytaxi.common.http.impl.BaseRequest;
-import com.dalimao.mytaxi.common.http.impl.OkHttpClientImpl;
-import com.dalimao.mytaxi.model.RejisterBean;
-import com.dalimao.mytaxi.utils.ToastUtils;
-import com.dalimao.mytaxi.utils.countDownTimer;
 
 import java.io.File;
 import java.util.List;
@@ -195,6 +202,34 @@ public class RegisterActivity extends BaseActivity {
             @Override
             public void run() {
                 IHttpClient mHttpClient = new OkHttpClientImpl();
+
+
+                String url = API.Config.getDomain() + API.REGISTER;
+                IRequest requesta = new BaseRequest(url);
+                requesta.setBody("phone", phone);
+                requesta.setBody("password", mPassword);
+                requesta.setBody("uid", DevUtil.UUID(App.getInstance()));
+
+                IResponse responsea = mHttpClient.post(requesta, false);
+                Log.d(TAG, responsea.getData());
+
+                RegisterResponse registerResponse = new RegisterResponse();
+                if (responsea.getCode() == BaseResponse.STATE_OK) {
+                    BaseBizResponse bizRes =
+                            new Gson().fromJson(responsea.getData(),
+                                    BaseBizResponse.class);
+                    if (bizRes.getCode() == BaseBizResponse.STATE_OK) {
+                        SharedPreferencesDao dao =
+                                new SharedPreferencesDao(App.getInstance().getInstance(),
+                                        SharedPreferencesDao.FILE_ACCOUNT);
+                        dao.save(phone,mPassword);
+                    } else {
+                    }
+                } else {
+                }
+
+
+
                 IRequest request = new BaseRequest(API.TEST_DOMAIN);
                 if (isMember)
                     request.setBody("class", "user");

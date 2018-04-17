@@ -38,6 +38,7 @@
             android:value="96d0ea5679759aa8a158591a1632ecee" />
 
         <activity
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:name="com.dalimao.mytaxi.module.mains.MainActivity"
             android:launchMode="singleTask">
 

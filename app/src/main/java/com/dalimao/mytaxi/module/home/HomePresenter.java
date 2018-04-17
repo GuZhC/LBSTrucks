@@ -86,7 +86,7 @@ public class HomePresenter implements HomeContract.IHomePresenter {
                                     imagUrls.add(result.url);
                                 }
                                 PictureModel model = new PictureModel();
-                                model.desc = "福利!福利";
+                                model.desc = "司机";
                                 model.url = result.url;
                                 mModels.add(model);
 //                                Log.e( "image",model.url+"\n");
@@ -136,8 +136,8 @@ public class HomePresenter implements HomeContract.IHomePresenter {
                     neaberShopModel.setImageUrl("https://ws1.sinaimg.cn/large/610dc034ly1fiiiyfcjdoj20u00u0ju0.jpg");
                     break;
             }
-            neaberShopModel.setTitle(i + "98 ? ");
-            neaberShopModel.setLocation("不收定金，货到付款。");
+            neaberShopModel.setTitle( "司机"+i );
+            neaberShopModel.setLocation("客户第一，货到付款。");
             neaberShopModel.setDistance(i + "66 米 ");
             data.add(neaberShopModel);
         }
