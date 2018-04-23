@@ -229,7 +229,6 @@ public class RegisterActivity extends BaseActivity {
                 }
 
 
-
                 IRequest request = new BaseRequest(API.TEST_DOMAIN);
                 if (isMember)
                     request.setBody("class", "user");
