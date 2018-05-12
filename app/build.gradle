@@ -21,7 +21,7 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
-    dexOptions{
+    dexOptions {
         jumboMode true
     }
 }
@@ -62,7 +62,6 @@ dependencies {
 
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
 //    compile 'com.lzy.net:okgo:3.0.4'
-
 
     //ui
     compile 'com.youth.banner:banner:1.4.10'

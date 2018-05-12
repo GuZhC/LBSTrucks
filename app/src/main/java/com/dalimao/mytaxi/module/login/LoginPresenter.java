@@ -144,7 +144,10 @@ public class LoginPresenter implements LoginContract.ILoginPresentr {
                 } else {
                     loginBean = new LoginBean();
                     loginBean.setCode(500);
-                    loginBean.getData().setIs_login(0);
+                    LoginBean.DataBean  dataBean = new LoginBean.DataBean();
+                    dataBean.setIs_login(1);
+                    loginBean.setData(dataBean);
+
                 }
                 Message message = new Message();
                 message.what = 1;

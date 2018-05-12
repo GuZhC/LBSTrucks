@@ -20,69 +20,65 @@
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
-    <!--推送所需的权限-->
+    <!-- 推送所需的权限 -->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name="com.dalimao.mytaxi.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        tools:replace="android:icon,android:theme,android:name "
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon,android:theme,android:name ">
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="96d0ea5679759aa8a158591a1632ecee" />
 
         <activity
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:name="com.dalimao.mytaxi.module.mains.MainActivity"
-            android:launchMode="singleTask">
-
-        </activity>
-        <activity android:name="com.dalimao.mytaxi.module.classify.ClassifyActivity" />
-        <activity android:name="com.dalimao.mytaxi.base.BaseActivity" />
-        <activity android:name="com.dalimao.mytaxi.module.me.cartinfo.MyCartInfoActivity" />
-        <activity android:name="com.dalimao.mytaxi.module.me.cartinfo.AddMyCart" />
-        <activity android:name="com.dalimao.mytaxi.module.login.LoginActivity" >
+            android:name=".module.mains.MainActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+        <activity android:name=".module.classify.ClassifyActivity" />
+        <activity android:name=".base.BaseActivity" />
+        <activity android:name=".module.me.cartinfo.MyCartInfoActivity" />
+        <activity android:name=".module.me.cartinfo.AddMyCart" />
+        <activity android:name=".module.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dalimao.mytaxi.module.register.RegisterActivity" />
-        <activity android:name="com.dalimao.mytaxi.module.goods.goodsdetails.GoodsDetailsActivity" />
-        <activity android:name="com.dalimao.mytaxi.module.servingproduct.AllservicesActivity" />
-        <activity android:name="com.dalimao.mytaxi.module.goods.AllGoodsActivity" />
-        <activity android:name="com.dalimao.mytaxi.module.store.StoreDetailsActivity" />
-        <activity android:name="com.dalimao.mytaxi.module.servingproduct.servedetails.ServeDetailsActivity" />
-        <activity android:name="com.dalimao.mytaxi.module.login.ForgetPswActivity" />
-        <activity android:name="com.dalimao.mytaxi.module.me.account.MyAccountActivity"></activity>
-
-
+        <activity android:name=".module.register.RegisterActivity" />
+        <activity android:name=".module.goods.goodsdetails.GoodsDetailsActivity" />
+        <activity android:name=".module.servingproduct.AllservicesActivity" />
+        <activity android:name=".module.goods.AllGoodsActivity" />
+        <activity android:name=".module.store.StoreDetailsActivity" />
+        <activity android:name=".module.servingproduct.servedetails.ServeDetailsActivity" />
+        <activity android:name=".module.login.ForgetPswActivity" />
+        <activity android:name=".module.me.account.MyAccountActivity" />
 
         <service
-            android:label="PushService"
             android:name="cn.bmob.push.lib.service.PushService"
-            android:process=":bmobpush"
-            android:exported="true">
+            android:exported="true"
+            android:label="PushService"
+            android:process=":bmobpush">
             <intent-filter>
-                <action android:name="cn.bmob.push.lib.service.PushService"/>
+                <action android:name="cn.bmob.push.lib.service.PushService" />
             </intent-filter>
         </service>
 
         <!-- 用于进程保活 -->
         <service
             android:name="cn.bmob.push.lib.service.PushNotifyService"
-            android:process=":bmobpush" >
-        </service>
+            android:process=":bmobpush"></service>
 
-        <receiver android:name="cn.bmob.push.PushReceiver" >
+        <receiver android:name="cn.bmob.push.PushReceiver">
             <intent-filter>
+
                 <!-- 系统启动完成后会调用 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <!-- 解锁完成后会调用 -->
@@ -94,16 +90,17 @@
 
         <!-- 第四部中创建的消息接收器，在这里进行注册 -->
         <receiver android:name=".common.push.PushReceiver">
-            <intent-filter >
-                <action android:name="cn.bmob.push.action.MESSAGE"/>
+            <intent-filter>
+                <action android:name="cn.bmob.push.action.MESSAGE" />
             </intent-filter>
         </receiver>
 
         <!-- 接收心跳和唤醒的广播，要和PushService运行在同个进程 -->
         <receiver
             android:name="cn.bmob.push.PushNotifyReceiver"
-            android:process=":bmobpush" >
+            android:process=":bmobpush">
             <intent-filter>
+
                 <!-- 接收心跳广播的action -->
                 <action android:name="cn.bmob.push.action.HEARTBEAT" />
                 <!-- 接收唤醒广播的action -->
