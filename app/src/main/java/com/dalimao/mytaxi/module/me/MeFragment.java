@@ -94,7 +94,7 @@ public class MeFragment extends BaseFragment {
                      }
 
                  }else {
-                     ToastUtils.showInfo(getContext(),"获取用户信息失败");
+//                     ToastUtils.showInfo(getContext(),"获取用户信息失败");
                  }
              }
             }

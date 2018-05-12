@@ -1,175 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/activity_main"
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="match_parent"
-        >
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/colorPrimary"
-            android:id="@+id/toolbar2">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:text="附近的车"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </android.support.v7.widget.Toolbar>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-        <!--  地图容器-->
-        <FrameLayout
-            android:id="@+id/map_container"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimary">
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar2" />
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="附近的车"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <!--  地图容器-->
+    <FrameLayout
+        android:id="@+id/map_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar2" />
 
 
+    <!-- 起点终点选择-->
+    <LinearLayout
+        android:id="@+id/select_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="12dp">
 
-        <!-- 起点终点选择-->
+        <Button
+            android:id="@+id/btn_neaber_addgoods"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="1dp"
+            android:text="填写货物信息"
+            android:background="@drawable/shape_circle_fogetpsw_btn_bg"
+            android:textColor="@color/white" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="16dp"
-            android:padding="12dp"
-            android:background="@color/white"
-            android:id="@+id/select_area"
-            >
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="起点"
-                    android:textSize="14sp"
-                    android:textColor="@color/color_text_normal"
-                    />
-                <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/start"
-                    android:textSize="14sp"
-                    android:padding="12dp"
-                    android:textColor="@color/color_text_normal"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/end"
-                    android:textSize="@dimen/text_size_normal"
-                    android:textColor="@color/color_text_normal"
-                    />
-                <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/end"
-                    android:hint="@string/where_are_you_go"
-                    android:textSize="@dimen/text_size_normal"
-                    android:textColorHint="@color/color_dark_gray"
-                    android:textColor="@color/color_text_normal"
-                    />
-            </LinearLayout>
-        </LinearLayout>
-        <!--  操作区 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/optArea"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:padding="12dp"
-            android:background="@color/bg_white"
-            android:orientation="vertical"
-            android:visibility="gone"
-            >
-            <!-- 状态提示区 -->
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_normal"
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/tips_info"
-                    android:visibility="gone"
-                    android:textColor="@color/color_text_normal"
-                    />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/loading_area"
-                    android:visibility="gone"
-                    android:layout_gravity="center_horizontal">
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size_normal"
-                        android:text="@string/calling_driver"
-                        android:layout_gravity="center_vertical"
-                        android:id="@+id/loading_text"
-                        android:textColor="@color/color_text_normal"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-            <!-- 操作按钮 -->
-            <LinearLayout
+                android:text="起点"
+                android:textColor="@color/color_text_normal"
+                android:textSize="14sp" />
+
+            <AutoCompleteTextView
+                android:id="@+id/start"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:padding="@dimen/activity_vertical_margin"
-                android:weightSum="2"
-                >
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Dialog.Button"
-                    android:text="@string/call"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:id="@+id/btn_call_driver"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Dialog.Button"
-                    android:text="@string/cancel"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:id="@+id/btn_cancel"
-                    />
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Dialog.Button"
-                    android:text="@string/pay"
-                    android:id="@+id/btn_pay"
-                    android:layout_weight="1"
-                    android:visibility="gone"
-                    />
-            </LinearLayout>
-
-
+                android:padding="12dp"
+                android:textColor="@color/color_text_normal"
+                android:textSize="14sp" />
         </LinearLayout>
 
-    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/end"
+                android:textColor="@color/color_text_normal"
+                android:textSize="@dimen/text_size_normal" />
+
+            <AutoCompleteTextView
+                android:id="@+id/end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/where_are_you_go"
+                android:textColor="@color/color_text_normal"
+                android:textColorHint="@color/color_dark_gray"
+                android:textSize="@dimen/text_size_normal" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--  操作区 -->
+    <LinearLayout
+        android:id="@+id/optArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@color/bg_white"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:visibility="gone">
+        <!-- 状态提示区 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tips_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/color_text_normal"
+                android:textSize="@dimen/text_size_normal"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/loading_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/loading_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/calling_driver"
+                    android:textColor="@color/color_text_normal"
+                    android:textSize="@dimen/text_size_normal" />
+            </LinearLayout>
+        </LinearLayout>
+        <!-- 操作按钮 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="@dimen/activity_vertical_margin"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btn_call_driver"
+                style="@style/Dialog.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:text="@string/call" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/Dialog.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/btn_pay"
+                style="@style/Dialog.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/pay"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

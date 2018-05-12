@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,10 +16,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.dalimao.mytaxi.lbs.GaodeLbsLayerImpl;
-import com.dalimao.mytaxi.lbs.LocationInfo;
-import com.dalimao.mytaxi.lbs.RouteInfo;
-import com.dalimao.mytaxi.model.Order;
 import com.dalimao.mytaxi.App;
 import com.dalimao.mytaxi.R;
 import com.dalimao.mytaxi.base.BaseFragment;
@@ -27,13 +24,21 @@ import com.dalimao.mytaxi.common.http.API;
 import com.dalimao.mytaxi.common.http.IHttpClient;
 import com.dalimao.mytaxi.common.http.impl.OkHttpClientImpl;
 import com.dalimao.mytaxi.common.storage.SharedPreferencesDao;
+import com.dalimao.mytaxi.lbs.GaodeLbsLayerImpl;
 import com.dalimao.mytaxi.lbs.ILbsLayer;
+import com.dalimao.mytaxi.lbs.LocationInfo;
+import com.dalimao.mytaxi.lbs.RouteInfo;
+import com.dalimao.mytaxi.model.Order;
 import com.dalimao.mytaxi.utils.DevUtil;
 import com.dalimao.mytaxi.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
@@ -46,6 +51,9 @@ import cn.bmob.v3.BmobInstallation;
 public class NearbyFragment extends BaseFragment implements NearbyContract.INearbyView {
     private final static String TAG = "NearbyFragment";
     private static final String LOCATION_END = "10000end";
+    @BindView(R.id.btn_neaber_addgoods)
+    Button btnNeaberAddgoods;
+    Unbinder unbinder;
     private NearbyPresenter mPresenter;
     private ILbsLayer mLbsLayer;
     private Bitmap mDriverBit;
@@ -108,7 +116,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
 
                 // 记录起点
                 mStartLocation = locationInfo;
-                Log.e("start",mStartLocation.getLatitude()+"  "+mStartLocation.getLongitude());
+                Log.e("start", mStartLocation.getLatitude() + "  " + mStartLocation.getLongitude());
 
                 // 设置起点
                 mStartEdit.setText(locationInfo.getName());
@@ -128,7 +136,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
         });
 
         // 添加地图到容器
-        ViewGroup mapViewContainer = (ViewGroup)mRootView.findViewById(R.id.map_container);
+        ViewGroup mapViewContainer = (ViewGroup) mRootView.findViewById(R.id.map_container);
         mapViewContainer.addView(mLbsLayer.getMapView());
 
         // 推送服务
@@ -268,7 +276,6 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
 
     /**
      * 绘制起点终点路径
-     *
      */
 
     private void showRoute(final LocationInfo mStartLocation,
@@ -331,6 +338,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
             showPhoneInputDialog();
         }
     }
+
     /**
      * 取消
      */
@@ -420,6 +428,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
 
         mPresenter.fetchNearDrivers(latitude, longitude);
     }
+
     /**
      * 上报当前位置
      *
@@ -431,7 +440,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
     }
 
     /**
-     *  获取正在进行中的订单
+     * 获取正在进行中的订单
      */
     private void getProcessingOrder() {
         /**
@@ -451,7 +460,6 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
         }
         mLbsLayer.addOrUpdateMarker(mStartLocation, mLocationBit);
     }
-
 
 
     /**
@@ -482,8 +490,10 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
             showLocationChange(locationInfo);
         }
     }
+
     /**
      * 显示司机的标记
+     *
      * @param locationInfo
      */
     @Override
@@ -506,7 +516,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
         showOptArea();
         mBtnCall.setEnabled(false);
         // 显示路径信息
-        if (order.getEndLongitude()!= 0 ||
+        if (order.getEndLongitude() != 0 ||
                 order.getDriverLatitude() != 0) {
             mEndLocation = new LocationInfo(order.getEndLatitude(), order.getEndLongitude());
             mEndLocation.setKey(LOCATION_END);
@@ -541,6 +551,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
         mBtnCall.setEnabled(true);
 
     }
+
     /**
      * 取消订单成功
      */
@@ -617,6 +628,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
 
     /**
      * 提示司机到达
+     *
      * @param mCurrentOrder
      */
     @Override
@@ -645,7 +657,8 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
     }
 
     /**
-     *   司机到上车地点的路径绘制
+     * 司机到上车地点的路径绘制
+     *
      * @param locationInfo
      */
 
@@ -674,6 +687,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
 
     /**
      * 显示开始行程
+     *
      * @param order
      */
     @Override
@@ -699,7 +713,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
     @Override
     public void showArriveEnd(Order order) {
         String tipsTemp = getString(R.string.pay_info);
-        String tips  = String.format(tipsTemp,
+        String tips = String.format(tipsTemp,
                 order.getCost(),
                 order.getDriverName(),
                 order.getCarNo());
@@ -712,7 +726,8 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
     }
 
     /**
-     *  司机到终点的路径绘制或更新
+     * 司机到终点的路径绘制或更新
+     *
      * @param locationInfo
      */
 
@@ -720,7 +735,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
     public void updateDriver2EndRoute(LocationInfo locationInfo, final Order order) {
         // 终点位置从 order 中获取
         if (order.getEndLongitude() != 0 ||
-                order.getEndLatitude() != 0 ) {
+                order.getEndLatitude() != 0) {
             mEndLocation = new LocationInfo(order.getEndLatitude(), order.getEndLongitude());
             mEndLocation.setKey(LOCATION_END);
         }
@@ -747,8 +762,10 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
         // 聚焦
         mLbsLayer.moveCamera(locationInfo, mEndLocation);
     }
+
     /**
      * 显示支付成功
+     *
      * @param mCurrentOrder
      */
     @Override
@@ -758,7 +775,7 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
     }
 
     /**
-     *   显示支付失败
+     * 显示支付失败
      */
     @Override
     public void showPayFail() {
@@ -825,5 +842,11 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
         super.onDestroy();
         RxBus.getInstance().unRegister(mPresenter);
         mLbsLayer.onDestroy();
+        unbinder.unbind();
+    }
+
+
+    @OnClick(R.id.btn_neaber_addgoods)
+    public void onViewClicked() {
     }
 }

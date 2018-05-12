@@ -40,7 +40,7 @@
         <activity
             android:name=".module.mains.MainActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".module.classify.ClassifyActivity" />
         <activity android:name=".base.BaseActivity" />
         <activity android:name=".module.me.cartinfo.MyCartInfoActivity" />
@@ -74,7 +74,7 @@
         <!-- 用于进程保活 -->
         <service
             android:name="cn.bmob.push.lib.service.PushNotifyService"
-            android:process=":bmobpush"></service>
+            android:process=":bmobpush" />
 
         <receiver android:name="cn.bmob.push.PushReceiver">
             <intent-filter>
@@ -108,6 +108,8 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".module.me.AboutMeActivity" />
+        <activity android:name=".module.nearby.AddGoodsActivity"></activity>
     </application>
 
 </manifest>
