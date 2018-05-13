@@ -109,7 +109,8 @@
         </receiver>
 
         <activity android:name=".module.me.AboutMeActivity" />
-        <activity android:name=".module.nearby.AddGoodsActivity"></activity>
+        <activity android:name=".module.nearby.AddGoodsActivity" />
+        <activity android:name=".module.home.OrderDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.dalimao.mytaxi.module.mains;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,8 @@ import android.widget.LinearLayout;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.dalimao.mytaxi.model.AddGoodsBean;
+import com.dalimao.mytaxi.module.home.HomeFragmentNew;
 import com.dalimao.mytaxi.module.me.MeFragment;
 import com.dalimao.mytaxi.module.nearby.NearbyFragment;
 import com.dalimao.mytaxi.R;
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout main;
     // 保存用户按返回键的时间
     private long mExitTime = 0;
+    NearbyFragment NearbyFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +35,18 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mBottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
         mViewpage = findViewById(R.id.viewPager);
-        setmBottomNavigationBar();
+        NearbyFragment = new NearbyFragment();
         setupViewPager(mViewpage);
+        setmBottomNavigationBar();
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (AddGoodsBean.getInstance().isHasGoods()){
+            NearbyFragment.haveGoodsUI();
+        }
     }
 
     private void setmBottomNavigationBar() {
@@ -46,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
                 .addItem(new BottomNavigationItem(R.mipmap.main_icon_one, R.string.tab_one).setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.mipmap.main_icon_two, R.string.tab_two).setActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.mipmap.main_icon_four, R.string.tab_four).setActiveColorResource(R.color.colorPrimary))
-                .setFirstSelectedPosition(0)//设置默认选择的按钮
+                .setFirstSelectedPosition(1)//设置默认选择的按钮
                 .initialise();//所有的设置需在调用该方法前完成
-        mViewpage.setCurrentItem(0);
+        mViewpage.setCurrentItem(1);
         mBottomNavigationBar //设置lab点击事件
                 .setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
                     @Override
@@ -82,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HomeFragment());
-        adapter.addFragment(new NearbyFragment());
+        adapter.addFragment(new HomeFragmentNew());
+        adapter.addFragment(NearbyFragment);
         adapter.addFragment(new MeFragment());
         viewPager.setAdapter(adapter);
     }

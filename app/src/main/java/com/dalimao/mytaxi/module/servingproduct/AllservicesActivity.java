@@ -39,7 +39,7 @@ public class AllservicesActivity extends BaseActivity {
     private boolean distance = false;
 
     List<AllServiceListModel> datas;
-    AllServicesRecyclerAdapter adapter;
+//    AllServicesRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,21 +50,21 @@ public class AllservicesActivity extends BaseActivity {
         Intent intent = getIntent();
         setTitle(intent.getStringExtra("toolbarTitle"));
         getData();
-        setRecycler();
+//        setRecycler();
     }
-
-    private void setRecycler() {
-        recyclerAllserviceList.setLayoutManager(new GridLayoutManager(this, 2));
-        adapter = new AllServicesRecyclerAdapter(datas);
-        adapter.openLoadAnimation();
-        recyclerAllserviceList.setAdapter(adapter);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(AllservicesActivity.this, ServeDetailsActivity.class));
-            }
-        });
-    }
+//
+//    private void setRecycler() {
+//        recyclerAllserviceList.setLayoutManager(new GridLayoutManager(this, 2));
+//        adapter = new AllServicesRecyclerAdapter(datas);
+//        adapter.openLoadAnimation();
+//        recyclerAllserviceList.setAdapter(adapter);
+//        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                startActivity(new Intent(AllservicesActivity.this, ServeDetailsActivity.class));
+//            }
+//        });
+//    }
 
     @OnClick({R.id.tv_allgoods_chose_distance, R.id.tv_allservice_chose_default, R.id.tv_allservice_chose_sales, R.id.tv_allservice_chose_price})
     public void onViewClicked(View view) {

@@ -1,6 +1,7 @@
 package com.dalimao.mytaxi.module.nearby;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -8,7 +9,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,6 +28,7 @@ import com.dalimao.mytaxi.lbs.GaodeLbsLayerImpl;
 import com.dalimao.mytaxi.lbs.ILbsLayer;
 import com.dalimao.mytaxi.lbs.LocationInfo;
 import com.dalimao.mytaxi.lbs.RouteInfo;
+import com.dalimao.mytaxi.model.AddGoodsBean;
 import com.dalimao.mytaxi.model.Order;
 import com.dalimao.mytaxi.utils.DevUtil;
 import com.dalimao.mytaxi.utils.ToastUtils;
@@ -36,7 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.bmob.push.BmobPush;
@@ -154,6 +154,10 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
         initViews();
 
         mIsLogin = mPresenter.isLogin();
+    }
+
+    public void haveGoodsUI(){
+        btnNeaberAddgoods.setText("已添加（点击修改）");
     }
 
     private void initViews() {
@@ -845,8 +849,18 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
         unbinder.unbind();
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 200) {
+//            btnNeaberAddgoods.setText("已添加（点击修改）");
+//        }
+//    }
 
     @OnClick(R.id.btn_neaber_addgoods)
     public void onViewClicked() {
+        startActivity(new Intent(getContext(), AddGoodsActivity.class));
     }
+
+
 }

@@ -1,9 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.dalimao.mytaxi.module.nearby.AddGoodsActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="货物类别"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_addgoods_type"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp"
+            tools:text="value" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="数量"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_addgoods_num"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp"
+            tools:text="value" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="重量"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_addgoods_weight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp"
+            tools:text="value" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="包装形式"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_addgoods_baozhuangtype"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp"
+            tools:text="value" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="包装尺寸"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_addgoods_goodssize"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp"
+            tools:text="value" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="发货时间"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_addgoods_time"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp"
+            tools:text="value" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="运费限制"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_addgoods_money"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp"
+            tools:text="value" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="发货地点"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_addgoods_location"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp"
+            tools:text="value" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="收货地点"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_addgoods_locationtwo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="end|center_vertical"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp"
+            tools:text="value" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color" />
+
+    <Button
+        android:id="@+id/btn_addgoods"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_circle_fogetpsw_btn_bg"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="260dp"
+        android:layout_height="38dp" />
+
+
+</LinearLayout>
+</android.support.v4.widget.NestedScrollView>

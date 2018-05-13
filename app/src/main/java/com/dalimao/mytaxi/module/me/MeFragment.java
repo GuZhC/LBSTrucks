@@ -207,7 +207,7 @@ public class MeFragment extends BaseFragment {
                 ToastUtils.showInfo(getContext(), "click");
                 break;
             case R.id.l_me_aboutme:
-                ToastUtils.showInfo(getContext(), "click");
+                startActivity(new Intent(getContext(),AboutMeActivity.class));
                 break;
         }
     }

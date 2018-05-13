@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Mingyida.iml" filepath="$PROJECT_DIR$/Mingyida.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LBSTrucks.iml" filepath="$PROJECT_DIR$/LBSTrucks.iml" />
+      <module fileurl="file://D:\workface\My\LBSTrucks\Mingyida.iml" filepath="D:\workface\My\LBSTrucks\Mingyida.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\workface\My\LBSTrucks\app\app.iml" filepath="D:\workface\My\LBSTrucks\app\app.iml" />
     </modules>
   </component>
 </project>

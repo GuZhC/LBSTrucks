@@ -18,7 +18,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyCartInfoActivity extends BaseActivity implements MyCartContract.IMyCartView {
 
-    MyCartPresenter mMyCartPresenter;
+//    MyCartPresenter mMyCartPresenter;
     @BindView(R.id.me_head_image)
     CircleImageView meHeadImage;
     @BindView(R.id.my_cart_go_add)
@@ -48,9 +48,9 @@ public class MyCartInfoActivity extends BaseActivity implements MyCartContract.I
         ButterKnife.bind(this);
         setBackBtn();
         setTitle("爱车信息");
-        mMyCartPresenter = new MyCartPresenter(this);
+//        mMyCartPresenter = new MyCartPresenter(this);
 
-        mMyCartPresenter.subscribe();
+//        mMyCartPresenter.subscribe();
     }
 
     @Override
@@ -66,9 +66,9 @@ public class MyCartInfoActivity extends BaseActivity implements MyCartContract.I
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mMyCartPresenter != null) {
-            mMyCartPresenter.unSubscribe();
-        }
+//        if (mMyCartPresenter != null) {
+//            mMyCartPresenter.unSubscribe();
+//        }
     }
 
     @OnClick({R.id.me_head_image, R.id.my_cart_go_add})
